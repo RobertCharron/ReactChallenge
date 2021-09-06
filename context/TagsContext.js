@@ -1,17 +1,18 @@
-import { ST } from 'next/dist/shared/lib/utils';
 import { createContext, useContext } from 'react';
 import { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const TagsContext = createContext();
 const TagsUpdateContext = createContext();
 
 
 const TagsProvider = ({children}) =>{
-    const [savedTags, setSavedTags] = useState([]);
+    const cookies = new Cookies();
+    const [savedTags, setSavedTags] = useState(cookies.get('savedTagSets') ?? new Array());
 
     function updateState(newSet) {
-        savedTags.add(newSet);
-        setSavedTags(savedTags);
+        setSavedTags(newSet);
+        cookies.set('savedTagSets', newSet);
     }
     return (
         <TagsContext.Provider value={savedTags}>
