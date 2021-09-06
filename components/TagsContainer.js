@@ -22,18 +22,13 @@ const TagsContainer = () => {
         updateSavedTags(savedTags);
         setUpdated(!updated);
     }
-    function removeTag(index) {
-        savedTags.delete()
-        updateSavedTags(savedTags);
-        setUpdated(!updated);
-    }
     return(
         <>
         <div className="flex flex-col">
          <TagInput saveTags={saveTags}/>
         </div>
         <div className="flex flex-col">
-            <TagSet removeTag={removeTag} />
+            <TagSet />
         </div>
         </>
     );

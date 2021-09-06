@@ -3,7 +3,7 @@ import { useTagsContext } from '../context/TagsContext';
 import { useTagsUpdateContext } from '../context/TagsContext';
 import { useState } from 'react'
 import TagButton from './TagButton';
-const TagSet = ({removeTag}) => {
+const TagSet = () => {
     const savedTags = useTagsContext();
     const updateTags = useTagsUpdateContext();
     const [updated, setupdated] = useState(true)
@@ -19,7 +19,7 @@ const TagSet = ({removeTag}) => {
     }
     function removeTag(value) {
         const index = savedTags.indexOf(value);
-        if(index) {
+        if(index || index === 0) {
             savedTags.splice(index, 1);
         }
         updateTags(savedTags);
