@@ -53,7 +53,7 @@ const TagInput = ({saveTags}) => {
     }
     function getAutocomplete() {
         return autoComplete.map((value) =>{
-            return <li className="bg-gray-200 border-b-2 border-gray-400 p-2 text-xl cursor-pointer hover:bg-blue-400 hover:text-white hover:text-4xl" onClick={() => selectExistingTag(value)}>{value}</li>;
+            return <li key={value} className="bg-gray-200 border-b-2 border-gray-400 p-2 text-xl cursor-pointer hover:bg-blue-400 hover:text-white hover:text-4xl" onClick={() => selectExistingTag(value)}>{value}</li>;
         });
     }
     function selectExistingTag(val) {
