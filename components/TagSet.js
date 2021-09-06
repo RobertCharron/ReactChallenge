@@ -1,24 +1,39 @@
 import React from 'react'
+import { useTagsContext } from '../context/TagsContext';
+import { useTagsUpdateContext } from '../context/TagsContext';
 import { useState } from 'react'
-const TagSet = ({value, index, removeSet}) => {
-    const [tags, setTags] = useState(value)
+import TagButton from './TagButton';
+const TagSet = ({removeTag}) => {
+    const savedTags = useTagsContext();
+    const updateTags = useTagsUpdateContext();
+    const [updated, setupdated] = useState(true)
 
     function getTags() {
         const displayTags = new Array();
-        tags.forEach((element, index) => {
+        savedTags.forEach((tagValue, index) => {
             displayTags.push(
-            <div className="tagSet--tag flex flex-row " key={index}>
-                <span className="items-center border rounded bg-gray-300 mr-2 p-3">{element}</span>
-            </div>
+                <TagButton key={index} value={tagValue} removeTag={removeTag} />
             )
         });
         return displayTags;
     }
+    function removeTag(value) {
+        const index = savedTags.indexOf(value);
+        if(index) {
+            savedTags.splice(index, 1);
+        }
+        updateTags(savedTags);
+        setupdated(!updated);
+    }
+    
+    if(savedTags.length < 1) {
+        return(<></>);
+    }
+
     return(
         <div className="bg-white w-2/4 p-3 text-lg mt-4 ">
             <div className="flex justify-between border-b-2 font-bold">
-                <h2>Tag Set</h2>
-                <button className="text-3xl cursor-pointer" onClick={(event) => {event.preventDefault(); removeSet(index)}}>&times;</button>
+                <h2>Saved Tags</h2>
             </div>
             <div className="flex flex-wrap">
                 {getTags()}

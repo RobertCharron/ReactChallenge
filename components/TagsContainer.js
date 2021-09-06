@@ -14,30 +14,26 @@ const TagsContainer = () => {
         if(tags.length == 0 ) {
             return;
         }
-        savedTags.push(tags);
+        tags.forEach(tag => {
+            if(!savedTags.includes(tag)) {
+                savedTags.push(tag);
+            }
+        });
         updateSavedTags(savedTags);
         setUpdated(!updated);
     }
-    function getSavedTags() {
-        const tags = new Array();
-        savedTags.forEach((element, index) => {
-            tags.push(<TagSet value={element} key={index + element} index={index} removeSet={removeSet} />);
-
-        });
-        return tags;
-    }
-    function removeSet(index) {
-        savedTags.splice(index, 1)
+    function removeTag(index) {
+        savedTags.delete()
         updateSavedTags(savedTags);
         setUpdated(!updated);
     }
     return(
         <>
-        <div className="flex">
+        <div className="flex flex-col">
          <TagInput saveTags={saveTags}/>
         </div>
         <div className="flex flex-col">
-            {getSavedTags()}
+            <TagSet removeTag={removeTag} />
         </div>
         </>
     );

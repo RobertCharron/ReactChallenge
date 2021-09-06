@@ -8,11 +8,11 @@ const TagsUpdateContext = createContext();
 
 const TagsProvider = ({children}) =>{
     const cookies = new Cookies();
-    const [savedTags, setSavedTags] = useState(cookies.get('savedTagSets') ?? new Array());
+    const [savedTags, setSavedTags] = useState(cookies.get('storedTags') ?? new Array());
 
     function updateState(newSet) {
         setSavedTags(newSet);
-        cookies.set('savedTagSets', newSet);
+        cookies.set('storedTags', newSet);
     }
     return (
         <TagsContext.Provider value={savedTags}>
